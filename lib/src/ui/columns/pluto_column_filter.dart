@@ -39,7 +39,7 @@ class PlutoColumnFilterState extends PlutoStateWithChange<PlutoColumnFilter> {
     return _filterRows.isEmpty
         ? ''
         : _filterRows.first.cells[FilterHelper.filterFieldValue]!.value
-            .toString();
+        .toString();
   }
 
   bool get _hasCompositeFilter {
@@ -50,24 +50,24 @@ class PlutoColumnFilterState extends PlutoStateWithChange<PlutoColumnFilter> {
   }
 
   InputBorder get _border => OutlineInputBorder(
-        borderSide: BorderSide(
-            color: stateManager.configuration.style.borderColor, width: 0.0),
-        borderRadius: BorderRadius.zero,
-      );
+    borderSide: BorderSide(
+        color: stateManager.configuration.style.borderColor, width: 0.0),
+    borderRadius: BorderRadius.zero,
+  );
 
   InputBorder get _enabledBorder => OutlineInputBorder(
-        borderSide: BorderSide(
-            color: stateManager.configuration.style.activatedBorderColor,
-            width: 0.0),
-        borderRadius: BorderRadius.zero,
-      );
+    borderSide: BorderSide(
+        color: stateManager.configuration.style.activatedBorderColor,
+        width: 0.0),
+    borderRadius: BorderRadius.zero,
+  );
 
   InputBorder get _disabledBorder => OutlineInputBorder(
-        borderSide: BorderSide(
-            color: stateManager.configuration.style.inactivatedBorderColor,
-            width: 0.0),
-        borderRadius: BorderRadius.zero,
-      );
+    borderSide: BorderSide(
+        color: stateManager.configuration.style.inactivatedBorderColor,
+        width: 0.0),
+    borderRadius: BorderRadius.zero,
+  );
 
   Color get _textFieldColor => _enabled
       ? stateManager.configuration.style.cellColorInEditState
@@ -75,7 +75,7 @@ class PlutoColumnFilterState extends PlutoStateWithChange<PlutoColumnFilter> {
 
   EdgeInsets get _padding =>
       widget.column.filterPadding ??
-      stateManager.configuration.style.defaultColumnFilterPadding;
+          stateManager.configuration.style.defaultColumnFilterPadding;
 
   @override
   PlutoGridStateManager get stateManager => widget.stateManager;
@@ -204,10 +204,10 @@ class PlutoColumnFilterState extends PlutoStateWithChange<PlutoColumnFilter> {
     if (plutoEvent is PlutoGridCannotMoveCurrentCellEvent &&
         plutoEvent.direction.isUp) {
       var isCurrentColumn = widget
-              .stateManager
-              .refColumns[stateManager.columnIndexesByShowFrozen[
-                  plutoEvent.cellPosition.columnIdx!]]
-              .key ==
+          .stateManager
+          .refColumns[stateManager.columnIndexesByShowFrozen[
+      plutoEvent.cellPosition.columnIdx!]]
+          .key ==
           widget.column.key;
 
       if (isCurrentColumn) {
@@ -229,7 +229,7 @@ class PlutoColumnFilterState extends PlutoStateWithChange<PlutoColumnFilter> {
         filterType: widget.column.defaultFilter,
         filterValue: changed,
         debounceMilliseconds:
-            stateManager.configuration.columnFilter.debounceMilliseconds,
+        stateManager.configuration.columnFilter.debounceMilliseconds,
       ),
     );
   }
@@ -257,42 +257,40 @@ class PlutoColumnFilterState extends PlutoStateWithChange<PlutoColumnFilter> {
           padding: _padding,
           child: Center(
             child: !widget.column.type.isDate
-                ? TextField(
-                    focusNode: _focusNode,
-                    controller: _controller,
-                    enabled: _enabled,
-                    style: style.cellTextStyle,
-                    onTap: _handleOnTap,
-                    onChanged: _handleOnChanged,
-                    onEditingComplete: _handleOnEditingComplete,
-                    decoration: InputDecoration(
-                      hintText:
-                          _enabled ? widget.column.defaultFilter.title : '',
-                      filled: true,
-                      fillColor: _textFieldColor,
-                      border: _border,
-                      enabledBorder: _border,
-                      disabledBorder: _disabledBorder,
-                      focusedBorder: _enabledBorder,
-                      contentPadding: const EdgeInsets.all(5),
-                    ),
-                  )
-                : WebDatePicker(
-                    onChange: (DateTime? value) {
-                      _controller.text = value.toString();
-                    },
-                    width: double.infinity,
-                    lastDate: DateTime.now(),
-                    dateformat: "dd.MM.yyyy",
-                    style: TextStyle(color: Colors.red),
-                    iconColor: Colors.black,
-                    borderColor: Colors.green,
-                    prefix: Icon(
-                      Icons.date_range,
-                      color: Colors.blue,
-                      size: 18,
-                    ),
+                ? TextFormField(
+              focusNode: _focusNode,
+              controller: _controller,
+              enabled: _enabled,
+              style: style.cellTextStyle,
+              onTap: _handleOnTap,
+              onChanged: _handleOnChanged,
+              onEditingComplete: _handleOnEditingComplete,
+              cursorColor: Color(0xff0e8f92),
+              decoration: InputDecoration(
+                hintText:
+                _enabled ? widget.column.defaultFilter.title : '',
+                border: const OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color(0xff0e8f92),
+                    width: 1.0,
                   ),
+                ),
+                contentPadding:
+                const EdgeInsets.symmetric(horizontal: 10),
+              ),
+            )
+                : WebDatePicker(
+              onChange: (DateTime? value) {
+                _controller.text = value.toString();
+              },
+              width: double.infinity,
+              lastDate: DateTime.now(),
+              dateformat: "dd.MM.yyyy",
+              style: TextStyle(color: Color(0xff505050)),
+              iconColor: Color(0xff505050),
+              borderColor: Color(0xff0e8f92),
+            ),
           ),
         ),
       ),
