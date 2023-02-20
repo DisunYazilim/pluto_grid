@@ -267,6 +267,8 @@ class PlutoColumnFilterState extends PlutoStateWithChange<PlutoColumnFilter> {
                     onEditingComplete: _handleOnEditingComplete,
                     cursorColor: Color(0xff0e8f92),
                     decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
                       hintText:
                           _enabled ? widget.column.defaultFilter.title : '',
                       border: const OutlineInputBorder(),
