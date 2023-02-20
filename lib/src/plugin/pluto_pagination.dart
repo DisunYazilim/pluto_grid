@@ -131,7 +131,7 @@ class PlutoPaginationState extends _PlutoPaginationStateWithChange {
 
   void _beforePage() {
     setState(() {
-      page -= _pageSizeToMove;
+      page--;
 
       if (page < 1) {
         page = 1;
@@ -143,7 +143,7 @@ class PlutoPaginationState extends _PlutoPaginationStateWithChange {
 
   void _nextPage() {
     setState(() {
-      page += _pageSizeToMove;
+      page++;
 
       if (page > totalPage) {
         page = totalPage;
@@ -165,15 +165,12 @@ class PlutoPaginationState extends _PlutoPaginationStateWithChange {
     return TextButton.styleFrom(
       disabledForegroundColor: Colors.transparent,
       shadowColor: Colors.transparent,
-      padding: const EdgeInsets.fromLTRB(5, 0, 0, 10),
-      backgroundColor: Colors.transparent,
+      backgroundColor: isCurrentIndex ? Color(0xff99d0d1) : Color(0xffebeff5),
     );
   }
 
   TextStyle _getNumberTextStyle(bool isCurrentIndex) {
     return TextStyle(
-      fontSize:
-          isCurrentIndex ? stateManager.configuration.style.iconSize : null,
       color: isCurrentIndex
           ? stateManager.configuration.style.activatedBorderColor
           : stateManager.configuration.style.iconColor,
@@ -185,14 +182,24 @@ class PlutoPaginationState extends _PlutoPaginationStateWithChange {
 
     var isCurrentIndex = page == pageFromIndex;
 
-    return TextButton(
-      onPressed: () {
-        stateManager.setPage(pageFromIndex);
-      },
-      style: _getNumberButtonStyle(isCurrentIndex),
-      child: Text(
-        pageFromIndex.toString(),
-        style: _getNumberTextStyle(isCurrentIndex),
+    return SizedBox(
+      width: 50,
+      height: 50,
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: TextButton(
+          onPressed: () {
+            stateManager.setPage(pageFromIndex);
+          },
+          style: _getNumberButtonStyle(isCurrentIndex),
+          child: Center(
+            child: Text(
+              pageFromIndex.toString(),
+              style: _getNumberTextStyle(isCurrentIndex),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -217,48 +224,85 @@ class PlutoPaginationState extends _PlutoPaginationStateWithChange {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  IconButton(
-                    onPressed: _isFirstPage ? null : _firstPage,
-                    icon: const Icon(Icons.first_page),
-                    color: iconColor,
-                    disabledColor: disabledIconColor,
-                    splashRadius: _iconSplashRadius,
-                    mouseCursor: _isFirstPage
-                        ? SystemMouseCursors.basic
-                        : SystemMouseCursors.click,
+                  Text("${_pageNumbers.length} sayfadan ${stateManager.page}."),
+                  SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: TextButton(
+                        onPressed: _isFirstPage ? null : _firstPage,
+                        style: TextButton.styleFrom(
+                          disabledForegroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          backgroundColor: const Color(0xffebeff5),
+                        ),
+                        child: const Icon(
+                          Icons.first_page,
+                          color: Color(0xff0e8f92),
+                        ),
+                      ),
+                    ),
                   ),
-                  IconButton(
-                    onPressed: _isFirstPage ? null : _beforePage,
-                    icon: const Icon(Icons.navigate_before),
-                    color: iconColor,
-                    disabledColor: disabledIconColor,
-                    splashRadius: _iconSplashRadius,
-                    mouseCursor: _isFirstPage
-                        ? SystemMouseCursors.basic
-                        : SystemMouseCursors.click,
+                  SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: TextButton(
+                        onPressed: _isFirstPage ? null : _beforePage,
+                        style: TextButton.styleFrom(
+                          disabledForegroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          backgroundColor: const Color(0xffebeff5),
+                        ),
+                        child: const Icon(
+                          Icons.navigate_before,
+                          color: Color(0xff0e8f92),
+                        ),
+                      ),
+                    ),
                   ),
                   ..._pageNumbers
                       .map(_makeNumberButton)
                       .toList(growable: false),
-                  IconButton(
-                    onPressed: _isLastPage ? null : _nextPage,
-                    icon: const Icon(Icons.navigate_next),
-                    color: iconColor,
-                    disabledColor: disabledIconColor,
-                    splashRadius: _iconSplashRadius,
-                    mouseCursor: _isLastPage
-                        ? SystemMouseCursors.basic
-                        : SystemMouseCursors.click,
+                  SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: TextButton(
+                        onPressed: _isLastPage ? null : _nextPage,
+                        style: TextButton.styleFrom(
+                          disabledForegroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          backgroundColor: const Color(0xffebeff5),
+                        ),
+                        child: const Icon(
+                          Icons.navigate_next,
+                          color: Color(0xff0e8f92),
+                        ),
+                      ),
+                    ),
                   ),
-                  IconButton(
-                    onPressed: _isLastPage ? null : _lastPage,
-                    icon: const Icon(Icons.last_page),
-                    color: iconColor,
-                    disabledColor: disabledIconColor,
-                    splashRadius: _iconSplashRadius,
-                    mouseCursor: _isLastPage
-                        ? SystemMouseCursors.basic
-                        : SystemMouseCursors.click,
+                  SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: TextButton(
+                        onPressed: _isLastPage ? null : _lastPage,
+                        style: TextButton.styleFrom(
+                          disabledForegroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          backgroundColor: const Color(0xffebeff5),
+                        ),
+                        child: const Icon(
+                          Icons.last_page,
+                          color: Color(0xff0e8f92),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

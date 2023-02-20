@@ -79,7 +79,7 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
       ),
     );
 
-    if (context.mounted) {
+    if (mounted) {
       stateManager.columnMenuDelegate.onSelected(
         context: context,
         stateManager: stateManager,

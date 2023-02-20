@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
+import 'package:web_date_picker/web_date_picker.dart';
 
 import '../ui.dart';
 
@@ -255,25 +256,43 @@ class PlutoColumnFilterState extends PlutoStateWithChange<PlutoColumnFilter> {
         child: Padding(
           padding: _padding,
           child: Center(
-            child: TextField(
-              focusNode: _focusNode,
-              controller: _controller,
-              enabled: _enabled,
-              style: style.cellTextStyle,
-              onTap: _handleOnTap,
-              onChanged: _handleOnChanged,
-              onEditingComplete: _handleOnEditingComplete,
-              decoration: InputDecoration(
-                hintText: _enabled ? widget.column.defaultFilter.title : '',
-                filled: true,
-                fillColor: _textFieldColor,
-                border: _border,
-                enabledBorder: _border,
-                disabledBorder: _disabledBorder,
-                focusedBorder: _enabledBorder,
-                contentPadding: const EdgeInsets.all(5),
-              ),
-            ),
+            child: !widget.column.type.isDate
+                ? TextField(
+                    focusNode: _focusNode,
+                    controller: _controller,
+                    enabled: _enabled,
+                    style: style.cellTextStyle,
+                    onTap: _handleOnTap,
+                    onChanged: _handleOnChanged,
+                    onEditingComplete: _handleOnEditingComplete,
+                    decoration: InputDecoration(
+                      hintText:
+                          _enabled ? widget.column.defaultFilter.title : '',
+                      filled: true,
+                      fillColor: _textFieldColor,
+                      border: _border,
+                      enabledBorder: _border,
+                      disabledBorder: _disabledBorder,
+                      focusedBorder: _enabledBorder,
+                      contentPadding: const EdgeInsets.all(5),
+                    ),
+                  )
+                : WebDatePicker(
+                    onChange: (DateTime? value) {
+                      _controller.text = value.toString();
+                    },
+                    width: double.infinity,
+                    lastDate: DateTime.now(),
+                    dateformat: "dd.MM.yyyy",
+                    style: TextStyle(color: Colors.red),
+                    iconColor: Colors.black,
+                    borderColor: Colors.green,
+                    prefix: Icon(
+                      Icons.date_range,
+                      color: Colors.blue,
+                      size: 18,
+                    ),
+                  ),
           ),
         ),
       ),
