@@ -14,5 +14,8 @@ dependencies:
   intl: ^0.18.0
   rxdart: ^0.27.7
   collection: 1.17.1
-
+  web_date_picker:
+      git:
+        url: https://github.com/DisunYazilim/web_date_picker
+        
 dev_dependencies:
